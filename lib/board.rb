@@ -32,5 +32,3 @@ class Board
     end
   end
 end
-
-Board.new.render_board
