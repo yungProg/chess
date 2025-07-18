@@ -5,8 +5,8 @@ require_relative 'piece'
 # a king
 class King < Piece
   def valid_moves # rubocop:disable Metrics/AbcSize
-    pos_x = x_coordinate
-    pos_y = y_coordinate
+    pos_x = y_coordinate
+    pos_y = x_coordinate
     [
       [pos_x + 1, pos_y + 1], [pos_x + 1, pos_y + 0], [pos_x + 1, pos_y - 1], [pos_x - 0, pos_y - 1],
       [pos_x - 1, pos_y - 1], [pos_x - 1, pos_y + 0], [pos_x - 1, pos_y + 1], [pos_x + 0, pos_y + 1]

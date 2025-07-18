@@ -6,16 +6,18 @@ require_relative '../piece/knight'
 require_relative '../piece/pawn'
 require_relative '../piece/queen'
 require_relative '../piece/rook'
+require_relative '../piece/piece'
 
 # represents chess board
 class Board
+  attr_accessor :board
   def initialize
     @board = [
       [Rook.new('black', 'a8'), Knight.new('black', 'b8'), Bishop.new('black', 'c8'), Queen.new('black', 'd8'),
        King.new('black', 'e8'), Bishop.new('black', 'f8'), Knight.new('black', 'g8'), Rook.new('black', 'h8')],
       [Pawn.new('black', 'a7'), Pawn.new('black', 'b7'), Pawn.new('black', 'c7'), Pawn.new('black', 'd7'),
        Pawn.new('black', 'e7'), Pawn.new('black', 'f7'), Pawn.new('black', 'g7'), Pawn.new('black', 'h7')],
-      Array.new(8, '.'), Array.new(8, '.'), Array.new(8, '.'), Array.new(8, '.'),
+      Array.new(8, Piece.new('', '')), Array.new(8, Piece.new('', '')), Array.new(8, Piece.new('', '')), Array.new(8, Piece.new('', '')),
       [Pawn.new('white', 'a2'), Pawn.new('white', 'b2'), Pawn.new('white', 'c2'), Pawn.new('white', 'd2'),
        Pawn.new('white', 'e2'), Pawn.new('white', 'f2'), Pawn.new('white', 'g2'), Pawn.new('white', 'h2')],
       [Rook.new('white', 'a1'), Knight.new('white', 'b1'), Bishop.new('white', 'c1'), Queen.new('white', 'd1'),
@@ -33,5 +35,3 @@ class Board
     print "   a   b   c   d   e   f   g   h\n"
   end
 end
-
-Board.new.render_board

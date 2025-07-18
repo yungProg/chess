@@ -5,8 +5,8 @@ require_relative 'piece'
 # a queen
 class Queen < Piece
   def valid_moves # rubocop:disable Metrics/AbcSize
-    pos_x = x_coordinate
-    pos_y = y_coordinate
+    pos_x = y_coordinate
+    pos_y = x_coordinate
     moves = []
     1.upto(7) do |i|
       moves.push([pos_x + i, pos_y], [pos_x, pos_y + i], [pos_x + i, pos_y + i], [pos_x - i, pos_y - i],

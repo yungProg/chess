@@ -5,8 +5,8 @@ require_relative 'piece'
 # a pawn
 class Pawn < Piece
   def valid_moves
-    pos_x = x_coordinate
-    pos_y = y_coordinate
+    pos_x = y_coordinate
+    pos_y = x_coordinate
     moves = if @color == 'black'
               [[pos_x + 0, pos_y + 1],
                [pos_x + 0, pos_y + 2]]
