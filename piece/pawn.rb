@@ -8,10 +8,9 @@ class Pawn < Piece
     pos_x = y_coordinate
     pos_y = x_coordinate
     moves = if @color == 'black'
-              [[pos_x + 0, pos_y + 1],
-               [pos_x + 0, pos_y + 2]]
+              [[pos_x + 1, pos_y + 0], [pos_x + 2, pos_y + 0]]
             else
-              [[pos_x + 0, pos_y - 1], [pos_x + 0, pos_y - 2]]
+              [[pos_x - 1, pos_y + 0], [pos_x - 2, pos_y + 0]]
             end
     moves.filter { |x, y| x.between?(0, 7) && y.between?(0, 7) }
   end

@@ -5,6 +5,7 @@ require_relative '../helper/piece_coordinates'
 # Piece master class
 class Piece
   attr_accessor :color, :position
+
   include PieceCoordinates
   def initialize(color, position)
     @color = color

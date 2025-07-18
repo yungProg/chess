@@ -9,8 +9,8 @@ class Queen < Piece
     pos_y = x_coordinate
     moves = []
     1.upto(7) do |i|
-      moves.push([pos_x + i, pos_y], [pos_x, pos_y + i], [pos_x + i, pos_y + i], [pos_x - i, pos_y - i],
-                 [pos_x - i, pos_y], [pos_x, pos_y - i], [pos_x - i, pos_y + i], [pos_x + i, pos_y - i])
+      moves.push([pos_x + i, pos_y], [pos_x, pos_y + i], [pos_x + i, pos_y + i], [pos_x - i, pos_y + i],
+                 [pos_x - i, pos_y], [pos_x, pos_y - i], [pos_x - i, pos_y - i], [pos_x + i, pos_y - i])
     end
     moves.filter { |x, y| x.between?(0, 7) && y.between?(0, 7) }
   end
