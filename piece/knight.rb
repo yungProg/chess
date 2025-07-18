@@ -8,9 +8,9 @@ class Knight < Piece
     pos_x = x_coordinate
     pos_y = y_coordinate
     [
-      [pos_x + 1, pos_y + 2], [pos_x + 1, pos_y - 2], [pos_x - 1, pos_y + 2], [pos_x - 1, pos_y - 2],
-      [pos_x + 2, pos_y + 1], [pos_x + 2, pos_y - 1], [pos_x - 2, pos_y + 1], [pos_x - 2, pos_y - 1]
-    ].filter! { |x, y| x.between?(0, 7) && y.between?(0, 7) }
+      [pos_x + 1, pos_y - 2], [pos_x + 2, pos_y - 1], [pos_x + 2, pos_y + 1], [pos_x + 1, pos_y + 2],
+      [pos_x - 1, pos_y + 2], [pos_x - 2, pos_y + 1], [pos_x - 2, pos_y - 1], [pos_x - 1, pos_y - 2]
+    ].filter { |x, y| x.between?(0, 7) && y.between?(0, 7) }
   end
 
   def to_s

@@ -30,5 +30,8 @@ class Board
       @board[i].each { |cell| print " #{cell}  " }
       print "#{i + 1}\n"
     end
+    print "   a   b   c   d   e   f   g   h\n"
   end
 end
+
+Board.new.render_board

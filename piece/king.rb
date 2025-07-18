@@ -10,7 +10,7 @@ class King < Piece
     [
       [pos_x + 1, pos_y + 1], [pos_x + 1, pos_y + 0], [pos_x + 1, pos_y - 1], [pos_x - 0, pos_y - 1],
       [pos_x - 1, pos_y - 1], [pos_x - 1, pos_y + 0], [pos_x - 1, pos_y + 1], [pos_x + 0, pos_y + 1]
-    ].filter! { |x, y| x.between?(0, 7) && y.between?(0, 7) }
+    ].filter { |x, y| x.between?(0, 7) && y.between?(0, 7) }
   end
 
   def to_s

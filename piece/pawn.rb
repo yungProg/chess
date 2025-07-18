@@ -13,7 +13,7 @@ class Pawn < Piece
             else
               [[pos_x + 0, pos_y - 1], [pos_x + 0, pos_y - 2]]
             end
-    moves.filter! { |x, y| x.between?(0, 7) && y.between?(0, 7) }
+    moves.filter { |x, y| x.between?(0, 7) && y.between?(0, 7) }
   end
 
   def to_s
