@@ -14,12 +14,43 @@ class Game
     @current_player = @player1
   end
 
+  def rr
+    @chessboard.render_board
+  end
+
   def select_piece
     puts "#{@current_player.name} please select a piece"
     loop do
       piece_selected = gets.chomp.downcase
       valid_piece = verify_selected_position(piece_selected)
       return valid_piece if valid_piece
+      puts 'Invalid selection'
+    end
+  end
+
+  def move_piece
+    piece_position = select_piece
+    piece_selected = @chessboard.board[piece_position[0]][piece_position[1]]
+    coord = nil
+    loop do
+      selected_destination = select_destination
+      if piece_selected.valid_moves.include?(selected_destination)
+        coord = selected_destination
+        break
+      end
+    end
+    @chessboard.board[coord[0]][coord[1]] = piece_selected
+    @chessboard.board[coord[0]][coord[1]].update_postion(@chessboard.board[coord[0]][coord[1]])
+    @chessboard.board[piece_position[0]][piece_position[1]] = Piece.new('', '')
+  end
+
+  def select_destination
+    puts "#{@current_player.name} please choose destination"
+    loop do
+      selected_destination = gets.chomp.downcase
+      valid_destination = verify_destination(selected_destination)
+      return valid_destination if valid_destination
+      puts 'Invalid destination'
     end
   end
 
@@ -34,6 +65,16 @@ class Game
     return [x, y] if @chessboard.board[x][y].color == @current_player.color
   end
 
+  def verify_destination(destination)
+    valid_cell = destination.match?(/^[a-h][1-8]$/)
+    return nil unless valid_cell
+    y = x_coordinate(destination)
+    x = y_coordinate(destination)
+    item = @chessboard.board[x][y]
+
+    [x, y] if item.color == @current_player.color
+  end
+
   def turn_player
     @current_player = if @current_player == @player1
                         @player2
@@ -42,3 +83,8 @@ class Game
                       end
   end
 end
+
+ng = Game.new('player1', 'player2')
+ng.rr
+ng.move_piece
+ng.rr
