@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require_relative '../lib/chessboard'
 
 describe ChessBoard do
   subject(:new_board) { described_class.new }
   describe '#initialize' do
-  let (:ranks) {new_board.board.length}
-  let (:files) {new_board.board.all? { |rank| rank.length == 8}}
+    let(:ranks) { new_board.board.length }
+    let(:files) { new_board.board.all? { |rank| rank.length == 8 } }
     context 'when new board is created' do
       it 'creates a board with 8 ranks' do
         no_ranks = 8
