@@ -7,6 +7,13 @@ class Player
   end
 
   def take_input
+    puts 'Move piece'
+    loop do
+      player_input = gets.chomp
+      return verify_range(player_input) if verify_range(player_input)
+
+      puts 'Invalid range!'
+    end
   end
 
   def verify_range(range)

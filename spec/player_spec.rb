@@ -19,10 +19,26 @@ describe Player do
   end
 
   describe '#take_input' do
-    subject { described_class.new('white') }
+    subject(:input_loop) { described_class.new('white') }
     context 'when player enters valid input' do
-      it 'returns movement coordinates' do
-        valid_input = 'd7d6'
+      it 'returns movement coordinates without error message' do
+        valid_input = 'a7a6'
+        allow(input_loop).to receive(:gets).and_return(valid_input)
+        expect(input_loop.take_input).to eq([[1, 0], [2, 0]])
+      end
+    end
+    context 'when player enters invalid input then valid input' do
+      before do
+        invalid_input = 'a7i6'
+        valid_input = 'a7a6'
+        call_to_action = 'Move piece'
+        allow(input_loop).to receive(:gets).and_return(invalid_input, valid_input)
+        allow(input_loop).to receive(:puts).with(call_to_action)
+      end
+      it 'returns movement coordinates after one error message' do
+        error_message = 'Invalid range!'
+        expect(input_loop).to receive(:puts).with(error_message).once
+        input_loop.take_input
       end
     end
   end
