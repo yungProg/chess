@@ -5,5 +5,8 @@ RSpec.shared_examples 'color' do
     it 'responds to color' do
       expect(subject).to respond_to(:color)
     end
+    it 'knows its position' do
+      expect(subject).to respond_to(:position)
+    end
   end
 end
