@@ -22,6 +22,16 @@ class ChessBoard
     rank_num.each { |num| @board[(num - 8).abs] = pieces["rank#{num}".to_sym] }
   end
 
+  def capture_piece(attacking_coordinates, target_coordinates)
+    y1 = attacking_coordinates[0]
+    x1 = attacking_coordinates[1]
+    y2 = target_coordinates[0]
+    x2 = target_coordinates[1]
+
+    @board[y2][x2] = @board[y1][x1]
+    @board[y1][x1] = nil
+  end
+
   private
 
   def assemble_white_pieces

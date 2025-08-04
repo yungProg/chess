@@ -3,7 +3,7 @@
 # Board
 - ✔ is 8 x 8
 - ✔ has a total of 16 pieces
-- ✖ captured enemy is removed from board
+- ✔ captured enemy is removed from board
 - ✔ pieces arrangement from players perspective (Staunton pattern):
     - ✔ Rook Knight Bishop Queen King Bishop Knight Rook
     - ✔ Pawn  Pawn   Pawn  Pawn  Pawn  Pawn   Pawn  Pawn
