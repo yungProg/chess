@@ -2,11 +2,12 @@
 
 # Super class for all piece
 class Piece
-  attr_reader :color, :position
+  attr_reader :color, :position, :first_move
 
   def initialize(color, position)
     @color = color
     @position = position
+    @first_move = true
   end
 
   def row_index

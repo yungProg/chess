@@ -21,11 +21,11 @@
 
 # Piece
 - ✔ piece color corresponds to player color
-- ✖ piece can move to squares unoccupied by friendly piece
-- ✖ piece can't jump over friendly piece except knight
-- ✖ a pawn can move 2 steps only on its first move
-- ✖ pawn can't capture when moving forward on the same file
-- ✖ pawn can capture diagonally one square, either right or left
+- ✔ piece can move to squares unoccupied by friendly piece
+- ✔ piece can't jump over friendly piece except knight
+- ✔ a pawn can move 2 steps only on its first move
+- ✔ pawn can't capture when moving forward on the same file
+- ✔ pawn can capture diagonally one square, either right or left
 
 # Game
 - ✖ checkmate is the ultimate objective

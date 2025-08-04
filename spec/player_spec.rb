@@ -2,7 +2,7 @@
 
 require_relative '../lib/player'
 
-describe Player do
+describe Player do # rubocop:disable Metrics/BlockLength
   describe '#verify_range' do
     subject(:player_input) { described_class.new('white') }
     context 'when player wants to move' do
