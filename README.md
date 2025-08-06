@@ -8,16 +8,16 @@
     - ✔ Rook Knight Bishop Queen King Bishop Knight Rook
     - ✔ Pawn  Pawn   Pawn  Pawn  Pawn  Pawn   Pawn  Pawn
 - ✔ Rows (ranks) and columns (files)
-- ✖ right hand corner nearest to each player is light colored
-- ✖ squared on which  a selected piece can move to is highlighted
+- ✔ right hand corner nearest to each player is light colored
+- ✖ square on which  a selected piece can move to is highlighted
 - ✖ king under immediate attack is checked
 
 # Player
-- ✖ 2 players
-- ✖ 1 white and 1 black
-- ✖ each player has 8 pieces
-- ✖ each player has 1 king, 1 queen, 2 bishops, 2 knights, 2 rooks and 8 pawns
-- ✖ piece moves by player select the piece then its destination. eg a2 a3
+- ✔ 2 players
+- ✔ 1 white and 1 black
+- ✔ each player has 16 pieces
+- ✔ each player has 1 king, 1 queen, 2 bishops, 2 knights, 2 rooks and 8 pawns
+- ✖ piece moves by player select the piece then its destination. eg a2 then a3
 
 # Piece
 - ✔ piece color corresponds to player color
