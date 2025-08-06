@@ -16,4 +16,8 @@ class King < Piece
     end
     moves
   end
+
+  def to_s
+    @color == 'white' ? '♔' : '♚'
+  end
 end

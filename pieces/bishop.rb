@@ -13,4 +13,8 @@ class Bishop < Piece
       bottom_left_diagonal_moves(piece_array_id, @color, board) +
       bottom_right_diagonal_moves(piece_array_id, @color, board)
   end
+
+  def to_s
+    @color == 'white' ? '♗' : '♝'
+  end
 end

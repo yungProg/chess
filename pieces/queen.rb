@@ -17,4 +17,8 @@ class Queen < Piece
       upward_moves(piece_array_id, @color, board) +
       downward_moves(piece_array_id, @color, board)
   end
+
+  def to_s
+    @color == 'white' ? '♕' : '♛'
+  end
 end

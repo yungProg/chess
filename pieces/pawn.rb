@@ -42,4 +42,8 @@ class Pawn < Piece
     area_for_attack = [board[xy[0] + 1][xy[1] - 1], board[xy[0] + 1][xy[1] + 1]]
     area_for_attack.filter { |piece| piece.nil? == false && piece.color != 'black' }
   end
+
+  def to_s
+    @color == 'white' ? '♙' : '♟'
+  end
 end

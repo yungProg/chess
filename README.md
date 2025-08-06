@@ -17,7 +17,7 @@
 - ✖ 1 white and 1 black
 - ✖ each player has 8 pieces
 - ✖ each player has 1 king, 1 queen, 2 bishops, 2 knights, 2 rooks and 8 pawns
-- ✖ piece moves by player select the piece and its destination. eg a2a3
+- ✖ piece moves by player select the piece then its destination. eg a2 a3
 
 # Piece
 - ✔ piece color corresponds to player color
