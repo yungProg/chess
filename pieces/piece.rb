@@ -27,6 +27,10 @@ class Piece
     @first_move = false
   end
 
+  def valid_moves(*)
+    []
+  end
+
   def to_s
     "\u00b7"
   end
