@@ -9,7 +9,7 @@
     - ✔ Pawn  Pawn   Pawn  Pawn  Pawn  Pawn   Pawn  Pawn
 - ✔ Rows (ranks) and columns (files)
 - ✔ right hand corner nearest to each player is light colored
-- ✖ square on which  a selected piece can move to is highlighted
+- ✔ selected piece and square(s) on which it can move to is highlighted
 - ✖ king under immediate attack is checked
 
 # Player
@@ -30,10 +30,10 @@
 # Game
 - ✖ checkmate is the ultimate objective
 - ✖ it can end in draw
-- ✖ white moves first
+- ✔ white moves first
 - ✖ 1 piece is moved per turn except when castling
 - ✖ move is only legal if it unchecks the king
-- ✖ if player can uncheck, it's checkmate
+- ✖ if player can't uncheck, it's checkmate
 - ✖ move illegal if it puts the king under check
 
 to be added later

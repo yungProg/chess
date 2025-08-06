@@ -33,6 +33,12 @@ class ChessBoard
     @board[y1][x1] = nil
   end
 
+  def find_king(color)
+    @board.flatten.each do |piece|
+      return piece.position_to_array_index if piece.class == King && piece.color == color
+    end
+  end
+
   private
 
   def assemble_white_pieces
