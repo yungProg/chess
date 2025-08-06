@@ -12,7 +12,7 @@ class Knight < Piece
     pattern.each do |i, j|
       next unless (y + i).between?(0, 7) && (x + j).between?(0, 7)
 
-      moves << [y + i, x + j] if board[y + i][x + j].nil? || board[y + i][x + j].color != color
+      moves << [y + i, x + j] if board[y + i][x + j].color.nil? || board[y + i][x + j].color != color
     end
     moves
   end

@@ -9,7 +9,7 @@ module Movements # rubocop:disable Metrics/ModuleLength
     1.upto(7) do |i|
       break unless (x - i).between?(0, 7)
 
-      if board[y][x - i].nil?
+      if board[y][x - i].color.nil?
         moves << [y, x - i]
       elsif board[y][x - i].color != color
         moves << [y, x - i]
@@ -28,7 +28,7 @@ module Movements # rubocop:disable Metrics/ModuleLength
     1.upto(7) do |i|
       break unless (x + i).between?(0, 7)
 
-      if board[y][x + i].nil?
+      if board[y][x + i].color.nil?
         moves << board[y, x + i]
       elsif board[y][x + i].color != color
         moves << [y, x + i]
@@ -47,7 +47,7 @@ module Movements # rubocop:disable Metrics/ModuleLength
     1.upto(7) do |i|
       break unless (y - i).between?(0, 7)
 
-      if board[y - i][x].nil?
+      if board[y - i][x].color.nil?
         moves << [y - i, x]
       elsif board[y - i][x].color != color
         moves << [y - i, x]
@@ -66,7 +66,7 @@ module Movements # rubocop:disable Metrics/ModuleLength
     1.upto(7) do |i|
       break unless (y + i).between?(0, 7)
 
-      if board[y + i][x].nil?
+      if board[y + i][x].color.nil?
         moves << [y + i, x]
       elsif board[y + i][x].color != color
         moves << [y + i, x]
@@ -85,7 +85,7 @@ module Movements # rubocop:disable Metrics/ModuleLength
     1.upto(7) do |i|
       break unless (y - i).between?(0, 7) && (x + i).between?(0, 7)
 
-      if board[y - i][x + i].nil?
+      if board[y - i][x + i].color.nil?
         moves << [y - i, x + i]
       elsif board[y - i][x + i].color != color
         moves << [y - i, x + i]
@@ -104,7 +104,7 @@ module Movements # rubocop:disable Metrics/ModuleLength
     1.upto(7) do |i|
       break unless (y - i).between?(0, 7) && (x - i).between?(0, 7)
 
-      if board[y - i][x - i].nil?
+      if board[y - i][x - i].color.nil?
         moves << [y - i, x - i]
       elsif board[y - i][x - i].color != color
         moves << [y - i, x - i]
@@ -123,7 +123,7 @@ module Movements # rubocop:disable Metrics/ModuleLength
     1.upto(7) do |i|
       break unless (y + i).between?(0, 7) && (x - i).between?(0, 7)
 
-      if board[y + i][x - i].nil?
+      if board[y + i][x - i].color.nil?
         moves << [y + i, x - i]
       elsif board[y + i][x - i].color != color
         moves << [y + i, x - i]
@@ -142,7 +142,7 @@ module Movements # rubocop:disable Metrics/ModuleLength
     1.upto(7) do |i|
       break unless (y + i).between?(0, 7) && (x + i).between?(0, 7)
 
-      if board[y + i][x + i].nil?
+      if board[y + i][x + i].color.nil?
         moves << [y + i, x + i]
       elsif board[y + i][x + i].color != color
         moves << [y + i, x + i]

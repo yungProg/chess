@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative '../pieces/piece'
 require_relative '../pieces/rook'
 require_relative '../pieces/knight'
 require_relative '../pieces/bishop'
@@ -12,7 +13,7 @@ class ChessBoard
   attr_reader :board
 
   def initialize
-    @board = Array.new(8) { Array.new(8) }
+    @board = Array.new(8) { Array.new(8, Piece.new(nil, '')) }
     arrange_pieces
   end
 

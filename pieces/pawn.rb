@@ -27,20 +27,20 @@ class Pawn < Piece
     color_capture = { 'black': black_capture(board), 'white': white_capture(board) }
     moves = []
     move = color_moves[@color.to_sym]
-    move.each { |y, x| moves << [y, x] if board[y][x].nil? }
+    move.each { |y, x| moves << [y, x] if board[y][x].color.nil? }
     moves + color_capture[@color.to_sym]
   end
 
   def white_capture(board)
     xy = position_to_array_index
     area_for_attack = [board[xy[0] - 1][xy[1] - 1], board[xy[0] - 1][xy[1] + 1]]
-    area_for_attack.filter { |piece| piece.nil? == false && piece.color != 'white' }
+    area_for_attack.filter { |piece| piece.color.nil? == false && piece.color != 'white' }
   end
 
   def black_capture(board)
     xy = position_to_array_index
     area_for_attack = [board[xy[0] + 1][xy[1] - 1], board[xy[0] + 1][xy[1] + 1]]
-    area_for_attack.filter { |piece| piece.nil? == false && piece.color != 'black' }
+    area_for_attack.filter { |piece| piece.color.nil? == false && piece.color != 'black' }
   end
 
   def to_s

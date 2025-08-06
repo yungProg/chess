@@ -22,4 +22,12 @@ class Piece
   def position_to_array_index
     [column_index, row_index]
   end
+
+  def has_moved
+    @first_move = false
+  end
+
+  def to_s
+    "\u00b7"
+  end
 end
