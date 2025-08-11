@@ -33,13 +33,23 @@ class Pawn < Piece
 
   def white_capture(board)
     xy = position_to_array_index
-    area_for_attack = [board[xy[0] - 1][xy[1] - 1], board[xy[0] - 1][xy[1] + 1]]
+    area_for_attack = []
+    area_for_attack << board[xy[0] - 1][xy[1] - 1] if (xy[0] - 1).between?(0, 7) && (xy[1] - 1).between?(0, 7)
+    area_for_attack << board[xy[0] - 1][xy[1] + 1] if (xy[0] - 1).between?(0, 7) && (xy[1] + 1).between?(0, 7)
+    # area_for_attack = [board[xy[0] - 1][xy[1] - 1], board[xy[0] - 1][xy[1] + 1]]
+    return [] if area_for_attack.empty?
+
     area_for_attack.filter { |piece| piece.color.nil? == false && piece.color != 'white' }
   end
 
   def black_capture(board)
     xy = position_to_array_index
-    area_for_attack = [board[xy[0] + 1][xy[1] - 1], board[xy[0] + 1][xy[1] + 1]]
+    area_for_attack = []
+    area_for_attack << board[xy[0] + 1][xy[1] - 1] if (xy[0] + 1).between?(0, 7) && (xy[1] - 1).between?(0, 7)
+    area_for_attack << board[xy[0] + 1][xy[1] + 1] if (xy[0] + 1).between?(0, 7) && (xy[1] + 1).between?(0, 7)
+    # area_for_attack = [board[xy[0] + 1][xy[1] - 1], board[xy[0] + 1][xy[1] + 1]]
+    return [] if area_for_attack.empty?
+
     area_for_attack.filter { |piece| piece.color.nil? == false && piece.color != 'black' }
   end
 

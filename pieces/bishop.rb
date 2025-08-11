@@ -14,6 +14,38 @@ class Bishop < Piece
       bottom_right_diagonal_moves(piece_array_id, @color, board)
   end
 
+  def left(*)
+    []
+  end
+
+  def right(*)
+    []
+  end
+
+  def upward(*)
+    []
+  end
+
+  def downward(*)
+    []
+  end
+
+  def top_left(piece_array_id, color, board = [])
+    top_left_diagonal_moves(piece_array_id, color, board)
+  end
+
+  def top_right(piece_array_id, color, board = [])
+    top_right_diagonal_moves(piece_array_id, color, board)
+  end
+
+  def bottom_left(piece_array_id, color, board = [])
+    bottom_left_diagonal_moves(piece_array_id, color, board)
+  end
+
+  def bottom_right(piece_array_id, color, board = [])
+    bottom_right_diagonal_moves(piece_array_id, color, board)
+  end
+
   def to_s
     @color == 'white' ? '♗' : '♝'
   end

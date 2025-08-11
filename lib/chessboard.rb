@@ -35,8 +35,16 @@ class ChessBoard
 
   def find_king(color)
     @board.flatten.each do |piece|
-      return piece.position_to_array_index if piece.class == King && piece.color == color
+      return piece.position_to_array_index if piece.instance_of?(King) && piece.color == color
     end
+  end
+
+  def all_moves(color)
+    moves = []
+    @board.flatten.each do |piece|
+      moves.concat(piece.valid_moves(@board)) if piece.color == color
+    end
+    moves
   end
 
   private

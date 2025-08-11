@@ -18,6 +18,38 @@ class Queen < Piece
       downward_moves(piece_array_id, @color, board)
   end
 
+  def left(piece_array_id, color, board = [])
+    left_moves(piece_array_id, color, board)
+  end
+
+  def right(piece_array_id, color, board = [])
+    right_moves(piece_array_id, color, board)
+  end
+
+  def upward(piece_array_id, color, board = [])
+    upward_moves(piece_array_id, color, board)
+  end
+
+  def downward(piece_array_id, color, board = [])
+    downward_moves(piece_array_id, color, board)
+  end
+
+  def top_left(piece_array_id, color, board = [])
+    top_left_diagonal_moves(piece_array_id, color, board)
+  end
+
+  def top_right(piece_array_id, color, board = [])
+    top_right_diagonal_moves(piece_array_id, color, board)
+  end
+
+  def bottom_left(piece_array_id, color, board = [])
+    bottom_left_diagonal_moves(piece_array_id, color, board)
+  end
+
+  def bottom_right(piece_array_id, color, board = [])
+    bottom_right_diagonal_moves(piece_array_id, color, board)
+  end
+
   def to_s
     @color == 'white' ? '♕' : '♛'
   end

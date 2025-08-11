@@ -14,6 +14,38 @@ class Rook < Piece
       downward_moves(piece_array_id, @color, board)
   end
 
+  def left(piece_array_id, color, board = [])
+    left_moves(piece_array_id, color, board)
+  end
+
+  def right(piece_array_id, color, board = [])
+    right_moves(piece_array_id, color, board)
+  end
+
+  def upward(piece_array_id, color, board = [])
+    upward_moves(piece_array_id, color, board)
+  end
+
+  def downward(piece_array_id, color, board = [])
+    downward_moves(piece_array_id, color, board)
+  end
+
+  def top_left(*)
+    []
+  end
+
+  def top_right(*)
+    []
+  end
+
+  def bottom_left(*)
+    []
+  end
+
+  def bottom_right(*)
+    []
+  end
+
   def to_s
     @color == 'white' ? '♖' : '♜'
   end
