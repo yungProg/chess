@@ -71,3 +71,7 @@ class ChessBoard
     }
   end
 end
+
+cc = ChessBoard.new
+bo = cc.board
+p cc.board[1][0].valid_moves(bo)

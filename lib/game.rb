@@ -19,7 +19,7 @@ class Game # rubocop:disable Metrics/ClassLength
   def play
     display_board
     loop do
-      puts "#{@current_player.color} your turn"
+      puts "#{@current_player.color} makes move"
       move_piece
       display_board
       break if checkmate?(@current_player.color)
@@ -85,16 +85,11 @@ class Game # rubocop:disable Metrics/ClassLength
   end
 
   def checking_piece(color)
-    # checking_pieces = []
     opponent_color = color == 'white' ? 'black' : 'white'
+    board = @chessboard.board
     king_position = @chessboard.find_king(opponent_color)
-    player_pieces = @chessboard.board.flatten.filter { |piece| piece.color == color }
-    player_pieces.each do |piece|
-      # return piece.position_to_array_index if piece.valid_moves(@chessboard.board).include?(king_position)
-
-      return piece if piece.valid_moves(@chessboard.board).include?(king_position)
-    end
-    # checking_pieces
+    player_pieces = board.flatten.filter { |piece| piece.color == color }
+    player_pieces.find { |piece| piece.valid_moves(board).include?(king_position)}
   end
 
   def king_escape?
@@ -115,10 +110,11 @@ class Game # rubocop:disable Metrics/ClassLength
     killer_piece = checking_piece(color)
     return unless killer_piece
 
+    board = @chessboard.board
     killer_position = killer_piece.position_to_array_index
     opponent_color = color == 'white' ? 'black' : 'white'
-    friendly_pieces = @chessboard.board.flatten.filter { |piece| piece.color == opponent_color }
-    friendly_pieces.any? { |piece| piece.valid_moves(@chessboard.board).include?(killer_position) }
+    friendly_pieces = board.flatten.filter { |piece| piece.color == opponent_color }
+    friendly_pieces.any? { |piece| piece.valid_moves(board).include?(killer_position) }
     # killer_moves.each do |killer_move|
     #   friendly_pieces.any? { |piece| piece.valid_moves(@chessboard.board).include?(killer_move) }
     # end
@@ -139,8 +135,7 @@ class Game # rubocop:disable Metrics/ClassLength
     # check if any friendly piece can move to the space
     # opponent_color = color == 'white' ? 'black' : 'white'
     killer = checking_piece(color)
-    p killer
-    return unless killer
+    return [] unless killer
 
     killer_movements_arr = [killer.left(killer, color, @chessboard.board),
                             killer.right(killer, color, @chessboard.board),
@@ -153,10 +148,11 @@ class Game # rubocop:disable Metrics/ClassLength
 
     # killer_movements = @chessboard.board[killer[0]][killer[1]].valid_moves(@chessboard.board)
 
-    color = color == 'white' ? 'black' : 'white'
-    attacked_king = @chessboard.find_king(color)
-    killer_movements_arr.each { |path| return path if path.include?(attacked_king) }
-    []
+    opponent_color = color == 'white' ? 'black' : 'white'
+    attacked_king = @chessboard.find_king(opponent_color)
+    # killer_movements_arr.each { |path| return path if path.include?(attacked_king) }
+    kill_path = killer_movements_arr.find { |path| path.include?(attacked_king)}
+    return kill_path || []
     # return unless attacked_king
 
     # king_movements = @chessboard.board[attacked_king[0]][attacked_king[1]].valid_moves(@chessboard.board)
@@ -165,9 +161,12 @@ class Game # rubocop:disable Metrics/ClassLength
 
   def friend_intercede?(color)
     killer_path = threat_path(color)
-    color = color == 'white' ? 'black' : 'white'
-    all_friendly_pieces = @chessboard.board.flatten.filter { |piece| piece.color == color }
-    all_friendly_moves = all_friendly_pieces.map { |piece| piece.valid_moves(@chessboard.board) }
+    return false if killer_path.empty?
+
+    opponent_color = color == 'white' ? 'black' : 'white'
+    board = @chessboard.board
+    all_friendly_pieces = board.flatten.filter { |piece| piece.color == opponent_color }
+    all_friendly_moves = all_friendly_pieces.map { |piece| piece.valid_moves(board) }
     all_friendly_moves.any? { |move| killer_path.include?(move) }
   end
 
@@ -213,8 +212,3 @@ class Game # rubocop:disable Metrics/ClassLength
     end
   end
 end
-
-a = Game.new
-b = a.chessboard.board
-
-p a.checking_piece('white')
