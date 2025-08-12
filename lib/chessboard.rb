@@ -10,7 +10,7 @@ require_relative '../pieces/pawn'
 
 # Chessboard blueprint
 class ChessBoard
-  attr_reader :board
+  attr_accessor :board
 
   def initialize
     @board = Array.new(8) { Array.new(8, Piece.new(nil, '')) }
@@ -73,5 +73,8 @@ class ChessBoard
 end
 
 cc = ChessBoard.new
+cc.board[2][1] = Pawn.new('white', 'b6')
+# p cc.board[2][1]
 bo = cc.board
+# p cc.board[0][0].update_position([0, 0])
 p cc.board[1][0].valid_moves(bo)

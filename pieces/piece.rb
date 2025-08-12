@@ -16,7 +16,7 @@ class Piece
   end
 
   def column_index
-    (@position[1].to_i - 1).abs
+    (@position[1].to_i - 8).abs
   end
 
   def position_to_array_index
@@ -25,7 +25,7 @@ class Piece
 
   def update_position(new_position)
     num_to_letter = { '0': 'a', '1': 'b', '2': 'c', '3': 'd', '4': 'e', '5': 'f', '6': 'g', '7': 'h' }
-    @position = "#{num_to_letter[new_position[1].to_s.to_sym]}#{(new_position[0] + 1).abs}"
+    @position = "#{num_to_letter[new_position[1].to_s.to_sym]}#{(new_position[0] - 8).abs}"
   end
 
   def moved

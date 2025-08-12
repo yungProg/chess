@@ -39,7 +39,9 @@ class Pawn < Piece
     # area_for_attack = [board[xy[0] - 1][xy[1] - 1], board[xy[0] - 1][xy[1] + 1]]
     return [] if area_for_attack.empty?
 
-    area_for_attack.filter { |piece| piece.color.nil? == false && piece.color != 'white' }
+    # area_for_attack.filter { |piece| piece.color.nil? == false && piece.color != 'white' }
+    area_for_attack.filter! { |piece| piece.color == 'black' }
+    area_for_attack.map { |piece| piece.position_to_array_index }
   end
 
   def black_capture(board)
@@ -50,7 +52,9 @@ class Pawn < Piece
     # area_for_attack = [board[xy[0] + 1][xy[1] - 1], board[xy[0] + 1][xy[1] + 1]]
     return [] if area_for_attack.empty?
 
-    area_for_attack.filter { |piece| piece.color.nil? == false && piece.color != 'black' }
+    # area_for_attack.filter { |piece| piece.color.nil? == false && piece.color != 'black' }
+    area_for_attack.filter! { |piece| piece.color == 'white' }
+    area_for_attack.map { |piece| piece.position_to_array_index }
   end
 
   def to_s
