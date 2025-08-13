@@ -17,9 +17,7 @@ class Game # rubocop:disable Metrics/ClassLength
   end
 
   def play
-    display_board
     loop do
-      puts "#{@current_player.color} makes move"
       move_piece
       display_board
       break if checkmate?(@current_player.color)
@@ -30,23 +28,41 @@ class Game # rubocop:disable Metrics/ClassLength
     replay?
   end
 
-  def move_piece # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  def initial_piece_move
+    move_from = nil
+    move_to = nil
+
     loop do
+      display_board
       move_from = verify_selected_piece
       display_board(move_from)
-      possible_destinations = @chessboard.board[move_from[0]][move_from[1]].valid_moves(@chessboard.board)
+      board = @chessboard.board
+      possible_destinations = @chessboard.board[move_from[0]][move_from[1]].valid_moves(board)
       move_to = verify_destination(possible_destinations)
+      return [move_from, move_to] if move_from && move_to
+    end
+  end
+
+  def move_piece # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    loop do
+      move_from_to = initial_piece_move
+      move_from = move_from_to[0]
+      move_to = move_from_to[1]
       piece_copy = @chessboard.board[move_from[0]][move_from[1]]
       destination_copy = @chessboard.board[move_to[0]][move_to[1]]
       @chessboard.board[move_to[0]][move_to[1]] = @chessboard.board[move_from[0]][move_from[1]]
       @chessboard.board[move_from[0]][move_from[1]] = Piece.new(nil, '')
+      @chessboard.board[move_to[0]][move_to[1]].update_position(move_to)
       unless king_checked?(@current_player.color)
-        @chessboard.board[move_to[0]][move_to[1]].update_position(move_to)
+        # @chessboard.board[move_to[0]][move_to[1]].update_position(move_to)
+        @chessboard.board[move_to[0]][move_to[1]].moved
         return
       end
-      puts "#{@current_player.color}: Move exposes your king! Try another"
+      puts "#{@current_player.color.upcase}: Move exposes your king! Try another move"
       @chessboard.board[move_from[0]][move_from[1]] = piece_copy
+      @chessboard.board[move_from[0]][move_from[1]].update_position(move_from)
       @chessboard.board[move_to[0]][move_to[1]] = destination_copy
+      # display_board
     end
     # temporarily move the piece
     # check if it puts the king under check?
@@ -54,6 +70,7 @@ class Game # rubocop:disable Metrics/ClassLength
   end
 
   def verify_selected_piece
+    puts "#{@current_player.color.upcase} select piece"
     loop do
       player_choice = @current_player.take_input
       return player_choice if @chessboard.board[player_choice[0]][player_choice[1]].color == @current_player.color
@@ -63,12 +80,13 @@ class Game # rubocop:disable Metrics/ClassLength
   end
 
   def verify_destination(legal_destinations)
-    loop do
-      player_choice = @current_player.take_input
-      return player_choice if legal_destinations.include?(@chessboard.board[player_choice[0]][player_choice[1]])
+    puts "#{@current_player.color.upcase} select destination"
+    player_choice = @current_player.take_input
+    # return player_choice if legal_destinations.include?(@chessboard.board[player_choice[0]][player_choice[1]])
+    return player_choice if legal_destinations.include?(player_choice)
 
-      puts 'Invalid destination'
-    end
+    puts 'Invalid destination'
+    display_board
   end
 
   def king_checked?(color)
@@ -79,9 +97,14 @@ class Game # rubocop:disable Metrics/ClassLength
   end
 
   def checkmate?(color)
-    return true unless friend_intercede?(color) && capture_threatening_piece?(color) && king_escape?
+    opponent_color = color == 'white' ? 'black' : 'white'
+    return false unless king_checked?(opponent_color)
 
-    false
+    return false if friend_intercede?(color) || capture_threatening_piece?(color) || king_escape?
+
+    # return true unless false && capture_threatening_piece?(color) && false
+
+    true
   end
 
   def checking_piece(color)
@@ -89,7 +112,7 @@ class Game # rubocop:disable Metrics/ClassLength
     board = @chessboard.board
     king_position = @chessboard.find_king(opponent_color)
     player_pieces = board.flatten.filter { |piece| piece.color == color }
-    player_pieces.find { |piece| piece.valid_moves(board).include?(king_position)}
+    player_pieces.find { |piece| piece.valid_moves(board).include?(king_position) }
   end
 
   def king_escape?
@@ -137,22 +160,23 @@ class Game # rubocop:disable Metrics/ClassLength
     killer = checking_piece(color)
     return [] unless killer
 
-    killer_movements_arr = [killer.left(killer, color, @chessboard.board),
-                            killer.right(killer, color, @chessboard.board),
-                            killer.upward(killer, color, @chessboard.board),
-                            killer.downward(killer, color, @chessboard.board),
-                            killer.top_left(killer, color, @chessboard.board),
-                            killer.top_right(killer, color, @chessboard.board),
-                            killer.bottom_left(killer, color, @chessboard.board),
-                            killer.bottom_right(killer, color, @chessboard.board)]
+    killer_pos = killer.position_to_array_index
+    killer_movements_arr = [killer.left(killer_pos, color, @chessboard.board),
+                            killer.right(killer_pos, color, @chessboard.board),
+                            killer.upward(killer_pos, color, @chessboard.board),
+                            killer.downward(killer_pos, color, @chessboard.board),
+                            killer.top_left(killer_pos, color, @chessboard.board),
+                            killer.top_right(killer_pos, color, @chessboard.board),
+                            killer.bottom_left(killer_pos, color, @chessboard.board),
+                            killer.bottom_right(killer_pos, color, @chessboard.board)]
 
     # killer_movements = @chessboard.board[killer[0]][killer[1]].valid_moves(@chessboard.board)
 
     opponent_color = color == 'white' ? 'black' : 'white'
     attacked_king = @chessboard.find_king(opponent_color)
     # killer_movements_arr.each { |path| return path if path.include?(attacked_king) }
-    kill_path = killer_movements_arr.find { |path| path.include?(attacked_king)}
-    return kill_path || []
+    kill_path = killer_movements_arr.find { |path| path.include?(attacked_king) }
+    kill_path || []
     # return unless attacked_king
 
     # king_movements = @chessboard.board[attacked_king[0]][attacked_king[1]].valid_moves(@chessboard.board)
@@ -182,7 +206,10 @@ class Game # rubocop:disable Metrics/ClassLength
   def replay?
     puts 'Do you want to play again? [y/n]'
     response = gets.chomp.downcase
-    play if response == 'y'
+    return unless response == 'y'
+
+    reset
+    play
   end
 
   def display_board(selected_piece = nil)
@@ -191,12 +218,14 @@ class Game # rubocop:disable Metrics/ClassLength
     board = @chessboard.board
     move_to = []
     move_to = board[selected_piece[0]][selected_piece[1]].valid_moves(board) if selected_piece
+    print "   a    b   c   d   e   f   g   h\n"
     color_area(board, selected_piece, move_to, colors)
+    print "   a    b   c   d   e   f   g   h\n"
   end
 
-  def color_area(board, selected_piece, move_to, colors)
-    8.downto(1) do |i|
-      print "#{i} "
+  def color_area(board, selected_piece, move_to, colors) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+    1.upto(8) do |i|
+      print "#{(i - 9).abs} "
       board[i - 1].each_with_index do |field, index|
         if move_to.include?([i - 1, index])
           print " #{field}  ".colorize(background: :red)
@@ -208,9 +237,7 @@ class Game # rubocop:disable Metrics/ClassLength
         colors.rotate!
       end
       colors.rotate!
-      print " #{i}\n"
+      print " #{(i - 9).abs}\n"
     end
   end
 end
-
-Game.new.display_board

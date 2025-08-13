@@ -29,7 +29,7 @@ module Movements # rubocop:disable Metrics/ModuleLength
       break unless (x + i).between?(0, 7)
 
       if board[y][x + i].color.nil?
-        moves << board[y, x + i]
+        moves << [y, x + i]
       elsif board[y][x + i].color != color
         moves << [y, x + i]
         break

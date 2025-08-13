@@ -9,12 +9,11 @@ class Player
   end
 
   def take_input
-    puts 'Select piece'
     loop do
       player_input = gets.chomp
       return verify_range(player_input) if verify_range(player_input)
 
-      puts 'Invalid range!'
+      puts 'Invalid range! Please choose a range between a-h with 1-8'
     end
   end
 
@@ -24,7 +23,7 @@ class Player
     letter_to_num = { 'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7 }
     split_range = [[range[1], range[0]]]
     coordinates = []
-    split_range.each { |x, y| coordinates.concat([(x.to_i - 1).abs, letter_to_num[y.to_sym]]) }
+    split_range.each { |x, y| coordinates.concat([(x.to_i - 8).abs, letter_to_num[y.to_sym]]) }
     coordinates
   end
 end

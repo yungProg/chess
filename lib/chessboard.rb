@@ -71,10 +71,3 @@ class ChessBoard
     }
   end
 end
-
-cc = ChessBoard.new
-cc.board[2][1] = Pawn.new('white', 'b6')
-# p cc.board[2][1]
-bo = cc.board
-# p cc.board[0][0].update_position([0, 0])
-p cc.board[1][0].valid_moves(bo)

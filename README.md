@@ -10,14 +10,14 @@
 - ✔ Rows (ranks) and columns (files)
 - ✔ right hand corner nearest to each player is light colored
 - ✔ selected piece and square(s) on which it can move to is highlighted
-- ✖ king under immediate attack is checked
+- ✔ king under immediate attack is checked
 
 # Player
 - ✔ 2 players
 - ✔ 1 white and 1 black
 - ✔ each player has 16 pieces
 - ✔ each player has 1 king, 1 queen, 2 bishops, 2 knights, 2 rooks and 8 pawns
-- ✖ piece moves by player select the piece then its destination. eg a2 then a3
+- ✔ piece moves by player select the piece then its destination. eg a2 then a3
 
 # Piece
 - ✔ piece color corresponds to player color
@@ -28,15 +28,16 @@
 - ✔ pawn can capture diagonally one square, either right or left
 
 # Game
-- ✖ checkmate is the ultimate objective
-- ✖ it can end in draw
+- ✔ checkmate is the ultimate objective
 - ✔ white moves first
-- ✖ 1 piece is moved per turn except when castling
-- ✖ move is only legal if it unchecks the king
-- ✖ if player can't uncheck, it's checkmate
-- ✖ move illegal if it puts the king under check
+- ✔ 1 piece is moved per turn except when castling
+- ✔ move is only legal if it unchecks the king
+- ✔ if player can't uncheck, it's checkmate
+- ✔ move illegal if it puts the king under check
 
 to be added later
 castling
 en passant
 promotion
+end in draw
+save game
