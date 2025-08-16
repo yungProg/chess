@@ -17,6 +17,21 @@ class ChessBoard
     arrange_pieces
   end
 
+  def to_hash
+    board = @board.map do |row|
+      row.map(&:to_hash)
+    end
+    { 'board' => board }
+  end
+
+  def self.from_hash(data)
+    chessboard = new
+    chessboard.board = data['board'].map do |row|
+      row.map { |square| Piece.from_hash(square) }
+    end
+    chessboard
+  end
+
   def arrange_pieces
     pieces = assemble_white_pieces.merge(assemble_black_pieces)
     rank_num = [1, 2, 7, 8]

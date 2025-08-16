@@ -8,6 +8,14 @@ class Player
     @color = color
   end
 
+  def to_hash
+    { 'color' => @color }
+  end
+
+  def self.from_hash(data)
+    new(data['color'])
+  end
+
   def take_input
     loop do
       player_input = gets.chomp

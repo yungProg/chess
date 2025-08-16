@@ -14,6 +14,20 @@ class Bishop < Piece
       bottom_right_diagonal_moves(piece_array_id, @color, board)
   end
 
+  # def to_hash
+  #   {
+  #     'color' => @color,
+  #     'position' => @position,
+  #     'first_move' => @first_move
+  #   }
+  # end
+
+  # def self.from_hash(data)
+  #   piece = new(data['color'], data['position'])
+  #   piece.instance_variable_set(:@first_move, data['first_move'])
+  #   piece
+  # end
+
   def left(*)
     []
   end

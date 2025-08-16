@@ -10,6 +10,48 @@ class Piece
     @first_move = true
   end
 
+  def to_hash
+    {
+      'class' => self.class.name,
+      'color' => @color,
+      'position' => @position,
+      'first_move' => @first_move
+    }
+  end
+
+  def self.from_hash(data)
+    case data['class']
+    when 'King'
+      piece = King.new(data['color'], data['position'])
+      piece.instance_variable_set(:@first_move, data['first_move'])
+      piece
+    when 'Queen'
+      piece = Queen.new(data['color'], data['position'])
+      piece.instance_variable_set(:@first_move, data['first_move'])
+      piece
+    when 'Bishop'
+      piece = Bishop.new(data['color'], data['position'])
+      piece.instance_variable_set(:@first_move, data['first_move'])
+      piece
+    when 'Rook'
+      piece = Rook.new(data['color'], data['position'])
+      piece.instance_variable_set(:@first_move, data['first_move'])
+      piece
+    when 'Knight'
+      piece = Knight.new(data['color'], data['position'])
+      piece.instance_variable_set(:@first_move, data['first_move'])
+      piece
+    when 'Pawn'
+      piece = Pawn.new(data['color'], data['position'])
+      piece.instance_variable_set(:@first_move, data['first_move'])
+      piece
+    else
+      piec = new(data['color'], data['position'])
+      piec.instance_variable_set(:@first_move, data['first_move'])
+      piec
+    end
+  end
+
   def row_index
     letter_to_num = { 'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7 }
     letter_to_num[@position[0].to_sym]

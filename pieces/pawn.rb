@@ -4,6 +4,20 @@ require_relative 'piece'
 
 # Describes functionalities of pawn
 class Pawn < Piece
+  # def to_hash
+  #   {
+  #     'color' => @color,
+  #     'position' => @position,
+  #     'first_move' => @first_move
+  #   }
+  # end
+
+  # def self.from_hash(data)
+  #   piece = new(data['color'], data['position'])
+  #   piece.instance_variable_set(:@first_move, data['first_move'])
+  #   piece
+  # end
+
   def black_moves
     y = position_to_array_index[0]
     x = position_to_array_index[1]

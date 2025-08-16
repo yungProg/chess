@@ -4,16 +4,55 @@ require_relative 'chessboard'
 require_relative 'player'
 require_relative '../pieces/piece'
 require 'colorize'
+require 'yaml'
 
 # Defines game flow
 class Game # rubocop:disable Metrics/ClassLength
-  attr_reader :chessboard
+  attr_reader :chessboard, :player1, :player2, :current_player
 
   def initialize
     @player1 = Player.new('white')
     @player2 = Player.new('black')
     @chessboard = ChessBoard.new
     @current_player = @player1
+  end
+
+  def save_game
+    Dir.mkdir('saves') unless Dir.exist?('saves')
+    game_state = {
+      'player1' => @player1.to_hash, 'player2' => @player2.to_hash,
+      'chessboard' => @chessboard.to_hash, 'current_player' => @current_player.to_hash
+    }
+
+    File.write('saves/save0.yml', game_state.to_yaml)
+    puts 'Game successfully saved to saves/save0.yml'
+  rescue StandardError => e
+    puts "Error saving game: #{e.message}"
+  end
+
+  def self.load_game
+    unless File.exist?('saves/save0.yml')
+      puts "File saves/save0.yml doesn't exist"
+      return
+    end
+
+    saved_data = YAML.load_file('saves/save0.yml')
+    player1 = Player.from_hash(saved_data['player1'])
+    player2 = Player.from_hash(saved_data['player2'])
+    chessboard = ChessBoard.from_hash(saved_data['chessboard'])
+    current_player = Player.from_hash(saved_data['current_player'])
+
+    game = new
+    game.instance_variable_set(:@player1, player1)
+    game.instance_variable_set(:@player2, player2)
+    game.instance_variable_set(:@chessboard, chessboard)
+    game.instance_variable_set(:@current_player, current_player)
+    puts 'Game successfully loaded from saves/save0.yml'
+    game
+  rescue Psych::SyntaxError
+    puts 'Invalid file format in saves/save0.yml'
+  rescue StandardError => e
+    puts "Error loading game: #{e.message}"
   end
 
   def play
@@ -23,6 +62,7 @@ class Game # rubocop:disable Metrics/ClassLength
       break if checkmate?(@current_player.color)
 
       turn_player
+      save_game
     end
     puts "#{@current_player.color} won"
     replay?
